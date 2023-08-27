@@ -1,11 +1,15 @@
 <template>
-$END$
+  <el-button
+    class="uppercase blueButton"
+  >
+    {{label}}
+  </el-button>
 </template>
 
-<script>
-export default {
-name: "bluButton"
-}
+<script setup>
+  const props = defineProps({
+    label: {type : String, value : ''}
+  })
 </script>
 
 <style scoped>

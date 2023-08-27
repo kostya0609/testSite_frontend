@@ -7,17 +7,9 @@
     >
       <template v-for="(item, key) in menu" :key="key">
         <el-menu-item :index="item.path"> {{item.name}} </el-menu-item>
-        <span v-if="item.name == 'Требует вашей реакции'" class="relative"><span class="badgeItem"> {{needActions}}</span></span>
       </template>
 
     </el-menu>
-    <el-button
-      @click="router.push({path : route.meta.path})"
-      class="absolute right-5 top-2 uppercase blueButton"
-
-    >
-      Добавить {{route.meta.label}}
-    </el-button>
   </div>
 
 </template>
@@ -26,7 +18,6 @@
 
 import {ref, reactive, inject, watchEffect} from "vue";
 import {useRoute, useRouter} from 'vue-router'
-
 export default {
   name: "navBar",
   setup(){
@@ -36,28 +27,24 @@ export default {
     const route    = useRoute()
     const router   = useRouter()
 
-    const loading  = ref(false);
-
     const menu     = reactive([]);
     router.getRoutes().forEach(el => {
-      if (el.meta.name)
-       !el.meta.forAdmin ? menu.push({path : el.path, name : el.meta.name}) : isAdmin.value ? menu.push({path : el.path, name : el.meta.name}) : '';
+      if (el.meta.name){
+
+        if(!el.meta.forAdmin)
+          menu.push({path : el.path, name : el.meta.name, order : el.meta.order});
+            else isAdmin.value ? menu.push({path : el.path, name : el.meta.name, order : el.meta.order}) : ''
+
+      }
     })
 
-    const activeIndex = ref(null);
-    const needActions = ref('');
+    menu.sort((a, b) => a.order - b.order);
 
-    async function getData(){
-      loading.value = true;
-      let result = await loadJson('/contract-work/actions/badge', {user_id: user.id})
-      loading.value = false;
-      if (result.status == 'success' && result.data) needActions.value = result.data.count; else needActions.value = '';
-    };
-    //getData();
+    const activeIndex = ref(null);
 
     watchEffect(() => { activeIndex.value = route.path })
 
-    return{ activeIndex, menu, route, needActions, router}
+    return{ activeIndex, menu, route, router}
   },
 }
 </script>

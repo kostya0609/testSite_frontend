@@ -6,10 +6,8 @@
 </template>
 
 <script setup>
-
-import BlueButton from "@/components/blueButton";
-import router from "@/router";
-
+  import BlueButton from "@/components/blueButton";
+  import router from "@/router";
 </script>
 
 <style scoped>

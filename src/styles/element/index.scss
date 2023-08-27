@@ -73,20 +73,6 @@
   word-break: break-word!important;
 }
 
-.el-icon--close-tip {
-  display: none!important;;
-}
-
-.badgeItem {
-  position: absolute;
-  top: -15px;
-  right: 0px;
-  padding: 0 5px;
-  z-index: 10;
-  color: white;
-  background: #f56c6c;
-  border-radius: 20px;
-}
 .blueButton{
   color: #fff!important;
   background: #3bc8f5!important;
@@ -96,45 +82,4 @@
 .blueButton:hover{
   background: #3fddff !important;
 }
-
-.el-icon--close-tip {
-  display: none!important;;
-}
-
-.link_download_files{
-  color: #409EFF;
-  text-decoration: underline;
-}
-span.userPhoto {
-  border-radius: 50%;
-  overflow: hidden;
-  display: block;
-  width: 32px;
-  height: 32px;
-}
-.userPhoto img{
-  width: 32px;
-}
-
-*, :after, :before {
-  box-sizing: content-box;
-}
-
-//.bold {
-//  font-family: 'Stolzlbold';
-//}
-//
-//.medium {
-//  font-family: 'Stolzlmedium';
-//}
-//
-//.regular {
-//  font-family: 'Stolzlregular';
-//}
-//
-//.lite {
-//  font-family: 'Stolzl';
-//}
-
-
 

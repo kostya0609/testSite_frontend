@@ -1,26 +1,66 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <pre-loader :loading="loading">
+
+    <div v-if="isOk">
+      <nav-bar v-if="navBarVisible"/>
+      <router-view/>
+    </div>
+
+  </pre-loader>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {ref, provide, reactive, computed} from "vue";
+import { useRouter, useRoute } from 'vue-router';
+import PreLoader from "@/components/preLoader";
+import NavBar from "@/components/navBar";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name       : 'App',
+  components : {PreLoader, NavBar},
+  setup(){
+    const router  = useRouter();
+    const loading = ref(false);
+    const isOk    = ref(false);
+    const user    = reactive({
+      name : null,
+      roles : [],
+    });
+
+    const navBarVisible     = computed(() => {
+      let currentRoute = router.currentRoute.value.name;
+      return['ListQuestions'].includes(currentRoute)
+    });
+
+    const auth = () => {
+      loading.value = true;
+      //некое подобие авторизации и получения каких-то прав
+      setTimeout(() => {
+
+        user.name = 'Vasya';
+        user.roles.length = 0;
+        user.roles.push('admin');
+        isOk.value = true;
+
+        loading.value = false;
+
+      }, 1000)
+    }
+    auth();
+
+    provide('user', user)
+
+
+    return{loading, isOk, navBarVisible}
   }
 }
+
+
+
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+
 </style>
