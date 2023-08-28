@@ -12,6 +12,7 @@
 <script>
 import {ref, provide, reactive, computed} from "vue";
 import { useRouter, useRoute } from 'vue-router';
+import {ElNotification}  from 'element-plus'
 import PreLoader from "@/components/preLoader";
 import NavBar from "@/components/navBar";
 
@@ -36,7 +37,7 @@ export default {
       roles : [],
     });
 
-    const navBarVisible     = computed(() => {
+    const navBarVisible = computed(() => {
       let currentRoute = router.currentRoute.value.name;
       return['ListQuestions'].includes(currentRoute)
     });
@@ -44,22 +45,19 @@ export default {
     const auth = () => {
       loading.value = true;
       //некое подобие авторизации и получения каких-то прав
-      setTimeout(() => {
 
         user.name = 'Vasya';
         user.roles.length = 0;
         user.roles.push('admin');
         isOk.value = true;
 
-        loading.value = false;
+      loading.value = false;
 
-      }, 1000)
     }
     auth();
 
     provide('user', user);
     provide('notify', notify);
-
 
     return{loading, isOk, navBarVisible}
   }

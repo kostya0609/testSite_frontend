@@ -100,20 +100,20 @@
   ]);
 
   const getData = async() => {
-  try{
-    loading.value = true;
-    let result = await QuestionRepo.list({
+    try{
+      loading.value = true;
+      let result = await QuestionRepo.list({
+        user_id  : 10
+      });
 
-    });
+      console.log(result.data)
 
-    console.log(result)
-
-  } catch (e) {
-    notify({title : `Получение данных о вопросах`, message : e.message, type : 'error', duration : 5000});
-  } finally {
-    loading.value = false;
-  }
-};
+    } catch (e) {
+      notify({title : `Получение данных о вопросах`, message : e.message, type : 'error', duration : 5000});
+    } finally {
+      loading.value = false;
+    }
+  };
   getData();
 
   questionsList.forEach(el => selectAnswer[el.id] = null)

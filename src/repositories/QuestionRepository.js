@@ -6,7 +6,7 @@ export class QuestionRepository extends BaseRepository {
     }
 
     /**
-     * @param {FormData} payload
+     * @param {object} payload
      * @return Promise<any>
      */
     async create(payload) {
@@ -22,7 +22,7 @@ export class QuestionRepository extends BaseRepository {
     }
 
     /**
-     * @param {FormData} payload
+     * @param {object} payload
      * @return Promise<any>
      */
     async delete(payload) {
@@ -38,7 +38,7 @@ export class QuestionRepository extends BaseRepository {
     }
 
     /**
-     * @param {object} payload
+     * @param {} payload
      * @return Promise<any>
      */
     async list(payload) {
