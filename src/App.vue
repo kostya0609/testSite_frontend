@@ -1,5 +1,5 @@
 <template>
-  <pre-loader :loading="loading">
+  <pre-loader :loading="loading" class="px-3">
 
     <div v-if="isOk">
       <nav-bar v-if="navBarVisible"/>

@@ -23,7 +23,7 @@ const routes = [
     name: 'AdminPage',
     component: AdminPage,
     meta : {
-      name     : 'Администрирование',
+      name     : 'Админка',
       forAdmin : true,
       order    : 2,
     },
