@@ -3,7 +3,7 @@
  */
 export class BaseRepository {
     /** @var {string} _url адрес api */
-    _url = 'http://api.kostya0609.online';
+    _url = 'http://api.kostya0609.online/site';
 
     /** @var {string} _version версия api на бэке */
     _version = '';
