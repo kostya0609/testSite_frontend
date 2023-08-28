@@ -1,8 +1,8 @@
 import {BaseRepository} from "./BaseRepository";
 
-export class QuestionRepository extends BaseRepository {
+export class AnswerRepository extends BaseRepository {
     constructor() {
-        super('questions');
+        super('answers');
     }
 
     /**
@@ -29,38 +29,6 @@ export class QuestionRepository extends BaseRepository {
         const result = await this._query({
             payload,
             nestedEndpoint: 'delete',
-        });
-
-        if (!result.success)
-            throw new Error(result.message);
-
-        return result;
-    }
-
-    /**
-     * @param {} payload
-     * @return Promise<any>
-     */
-    async list(payload) {
-        const result = await this._query({
-            payload,
-            nestedEndpoint: 'list',
-        });
-
-        if (!result.success)
-            throw new Error(result.message);
-
-        return result;
-    }
-
-    /**
-     * @param {} payload
-     * @return Promise<any>
-     */
-    async save(payload) {
-        const result = await this._query({
-            payload,
-            nestedEndpoint: 'save',
         });
 
         if (!result.success)

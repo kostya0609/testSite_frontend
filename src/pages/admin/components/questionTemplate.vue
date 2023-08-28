@@ -1,21 +1,21 @@
 <template>
-  <div>
+  <pre-loader :loading="loading">
     <h3 class="font-bold text-xl mb-1">Вопрос ID - {{question.id}}</h3>
     <el-row class="mb-3 pl-3">
       <el-col :md="12">
         <label class="font-bold block mb-1">Содержание</label>
         <el-input
-            v-model="question.question"
-            :class="['w-full', {'border border-red-500' : false}]"
-            placeholder="Содержание вопроса"
+          v-model="question.question"
+          :class="['w-full', {'border border-red-500' : false}]"
+          placeholder="Содержание вопроса"
         />
       </el-col>
       <el-col :md="2" class="lg:ml-3 my-auto">
         <br class="hidden lg:block xl:block 2xl:block" />
         <el-button
-            size="small"
-            type="danger"
-            @click="questionDelete(question.id)"
+          size="small"
+          type="danger"
+          @click="questionDelete(question.id)"
         >
           <el-icon><CloseBold /></el-icon>
         </el-button>
@@ -27,7 +27,6 @@
       :key="'a_' + el.id + '_' + idx"
       v-model:answer="question.answers[idx]"
       :question_id="question.id"
-      @answerDelete="ff"
     />
 
     <el-row>
@@ -39,28 +38,63 @@
       </el-col>
     </el-row>
 
-  </div>
+  </pre-loader>
 </template>
 
 <script setup>
 import AnswerTemplate from "@/pages/admin/components/answerTemplate"
 import BlueButton from "@/components/blueButton";
+import {inject, ref} from "vue";
+import {ElMessageBox }  from 'element-plus';
+import {QuestionRepo, AnswerRepo} from "@/repositories";
+import PreLoader from "@/components/preLoader";
 
 const props = defineProps({
   question : Object,
-})
+});
 
-const ff = (id1, id2)=>{
-  //console.log(id1)
-  //console.log(id2)
-}
+const notify         = inject('notify');
+const questionsList  = inject('questionsList');
+const user           = inject('user');
 
-const questionDelete = async(question_id) => {
-  console.log(question_id)
+const loading        = ref(false);
+
+const questionDelete = (question_id) => {
+
+  ElMessageBox.confirm(`Вы уверены, что хотите удалить вопрос с ID ${question_id} ?`)
+      .then(async () => {
+        let question_idx  = questionsList.findIndex(el => el.id == question_id);
+        question_idx >= 0 ? questionsList.splice(question_idx, 1) : '';
+      })
+      .catch(() => {})
 };
 
 const addAnswer = async(question_id) => {
-  console.log(question_id)
+  try{
+    loading.value = true;
+    let result = await AnswerRepo.add({
+      user_id : user.id,
+      question_id,
+    });
+
+    if (result.data) {
+      let question_idx  = questionsList.findIndex(el => el.id == question_id);
+      question_idx >= 0 ?
+          questionsList[question_idx].answers.push(
+              {
+                id     : result.data.answer_id,
+                answer : ''
+              }
+          )
+          : '';
+      notify({title : `Добавление ответа`, message : 'Ответ в вопрос успешно добавлен', type : 'success', duration : 2000});
+    };
+
+  } catch (e) {
+    notify({title : `Добавление ответа в вопрос`, message : e.message, type : 'error', duration : 5000});
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
 

@@ -3,7 +3,7 @@
  */
 export class BaseRepository {
     /** @var {string} _url адрес api */
-    _url = 'http://api.kostya0609.online/site';
+    _url = process.env.NODE_ENV == 'production' ? 'http://api.kostya0609.online/site' : 'http://localhost:8000/site';
 
     /** @var {string} _version версия api на бэке */
     _version = 'v1';

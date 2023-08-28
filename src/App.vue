@@ -33,7 +33,7 @@ export default {
       })
     };
     const user    = reactive({
-      name : null,
+      name  : 10,
       roles : [],
     });
 
@@ -45,14 +45,13 @@ export default {
     const auth = () => {
       loading.value = true;
       //некое подобие авторизации и получения каких-то прав
-
+      setTimeout(() => {
         user.name = 'Vasya';
         user.roles.length = 0;
         user.roles.push('admin');
         isOk.value = true;
-
-      loading.value = false;
-
+        loading.value = false;
+      }, 1000)
     }
     auth();
 

@@ -8,7 +8,7 @@
 
     <el-tabs type="border-card" v-model="page">
       <el-tab-pane v-for="(item, key) in menu" :label="item" :name="key" :key="key"/>
-      <questions v-if="page === 'questions' && !loading" v-model:value="questions_list"/>
+      <questions v-if="page === 'questions' && !loading" v-model:value="questionsList"/>
       <settings  v-if="page === 'settings'  && !loading"/>
     </el-tabs>
 
@@ -21,6 +21,7 @@
   import ReturnButton from "@/components/returnButton";
   import Questions from "@/pages/admin/components/questions"
   import Settings from "@/pages/admin/components/settings"
+  import {QuestionRepo} from "@/repositories";
 
   const notify  = inject('notify');
 
@@ -33,37 +34,27 @@
     settings  : 'Настройки',
   })
 
-  const questions_list = reactive([
-    {
-      id : 1,
-      question : 'q1',
-      answers : [
-        {id : 1, answer : 'a11'},
-        {id : 2, answer : 'a12'},
-        {id : 3, answer : 'a13'},
-      ]
-    },
-    {
-      id : 2,
-      question : 'q2',
-      answers : [
-        {id : 4, answer : 'a21'},
-        {id : 5, answer : 'a22'},
-        {id : 6, answer : 'a23'},
-      ]
-    },
-    {
-      id : 3,
-      question : 'q3',
-      answers : [
-        {id : 7, answer : 'a31'},
-        {id : 8, answer : 'a32'},
-        {id : 9, answer : 'a33'},
-      ]
-    }
-  ]);
+  const questionsList = reactive([]);
 
-  provide('questions_list', questions_list)
+  const getData = async() => {
+    try{
+      loading.value = true;
+      let result = await QuestionRepo.list({});
+
+      questionsList.length = 0;
+
+      if (result.data) questionsList.push(...result.data);
+
+    } catch (e) {
+      notify({title : `Получение данных о вопросах`, message : e.message, type : 'error', duration : 5000});
+    } finally {
+      loading.value = false;
+    }
+  };
+  getData();
+
+
+  provide('questionsList', questionsList)
 
 
 
