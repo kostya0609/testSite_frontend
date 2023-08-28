@@ -55,8 +55,11 @@
 </template>
 
 <script setup>
-import {ref, reactive, watch} from "vue";
+  import {ref, reactive, watch, inject} from "vue";
   import PreLoader from "@/components/preLoader";
+  import {QuestionRepo} from "@/repositories";
+
+  const notify          = inject('notify');
 
   const loading         = ref(false);
 
@@ -95,6 +98,23 @@ import {ref, reactive, watch} from "vue";
       ]
     }
   ]);
+
+  const getData = async() => {
+  try{
+    loading.value = true;
+    let result = await QuestionRepo.list({
+
+    });
+
+    console.log(result)
+
+  } catch (e) {
+    notify({title : `Получение данных о вопросах`, message : e.message, type : 'error', duration : 5000});
+  } finally {
+    loading.value = false;
+  }
+};
+  getData();
 
   questionsList.forEach(el => selectAnswer[el.id] = null)
 

@@ -22,6 +22,15 @@ export default {
     const router  = useRouter();
     const loading = ref(false);
     const isOk    = ref(false);
+    const notify  = ({title = '', message = '', type = '', duration = 3000} = {}) => {
+      ElNotification({
+        title,
+        message,
+        type,
+        duration,
+        dangerouslyUseHTMLString: true,
+      })
+    };
     const user    = reactive({
       name : null,
       roles : [],
@@ -48,7 +57,8 @@ export default {
     }
     auth();
 
-    provide('user', user)
+    provide('user', user);
+    provide('notify', notify);
 
 
     return{loading, isOk, navBarVisible}
