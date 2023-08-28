@@ -8,11 +8,13 @@
     />
     <div class="flex justify-between">
       <blue-button
-        label="Добавить вопрос"
+        action="add"
+        label="вопрос"
         @click="addQuestion"
       />
       <blue-button
-        label="Сохранить вопросы"
+          action="save"
+        label="вопросы"
         @click="saveQuestions"
       />
     </div>

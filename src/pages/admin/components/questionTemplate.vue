@@ -32,7 +32,8 @@
     <el-row>
       <el-col :md=12 align="right">
         <blue-button
-          label="Добавить ответ"
+          action="add"
+          label="ответ"
           @click="addAnswer(question.id)"
         />
       </el-col>
