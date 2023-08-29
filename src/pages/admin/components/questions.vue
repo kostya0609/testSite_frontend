@@ -43,7 +43,8 @@ const addQuestion   = async() => {
   try{
     loading.value = true;
     let result = await QuestionRepo.add({
-      user_id : user.id
+      user_id  : user.id,
+      question : 'Тут необходимо ввести содержание этого вопроса'
     });
 
     if (result.data) {
