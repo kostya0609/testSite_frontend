@@ -48,7 +48,7 @@ const addQuestion   = async() => {
       questionsList.push(
         {
           id       : result.data.question_id,
-          question : '',
+          question : 'Тут необходимо ввести содержание этого вопроса',
           answers  : []
         }
       );

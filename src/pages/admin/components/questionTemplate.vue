@@ -135,7 +135,7 @@ const addAnswer = async(question_id) => {
           questionsList[question_idx].answers.push(
               {
                 id     : result.data.answer_id,
-                answer : ''
+                answer : 'Тут необходимо ввести содержание этого ответа'
               }
           )
           : '';
