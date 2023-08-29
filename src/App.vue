@@ -34,7 +34,7 @@ export default {
     };
     const user    = reactive({
       name  : '',
-      id    : null,
+      id    : '',
       roles : [],
     });
 
