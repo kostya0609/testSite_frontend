@@ -60,7 +60,7 @@ export default {
     provide('user', user);
     provide('notify', notify);
 
-    console.log(user.id)
+    console.log('dfhsdfhsdfhsdg',user.id)
 
     return{loading, isOk, navBarVisible}
   }
