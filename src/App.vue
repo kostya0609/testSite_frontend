@@ -43,10 +43,10 @@ export default {
       return['ListQuestions'].includes(currentRoute)
     });
 
-    const auth = () => {
+    const auth = async() => {
       loading.value = true;
       //некое подобие авторизации и получения каких-то прав
-      setTimeout(() => {
+      await setTimeout(() => {
         user.name = 'Vasya';
         user.id   = 10;
         user.roles.length = 0;
@@ -59,6 +59,8 @@ export default {
 
     provide('user', user);
     provide('notify', notify);
+
+    console.log(user.id)
 
     return{loading, isOk, navBarVisible}
   }
