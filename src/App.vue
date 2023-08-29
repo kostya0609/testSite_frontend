@@ -34,7 +34,7 @@ export default {
     };
     const user    = reactive({
       name  : '',
-      id    : 10,
+      id    : '',
       roles : [],
     });
 
@@ -59,8 +59,6 @@ export default {
 
     provide('user', user);
     provide('notify', notify);
-
-    console.log('dfhsdfhsdfhsdg',user.id)
 
     return{loading, isOk, navBarVisible}
   }
