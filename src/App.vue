@@ -33,8 +33,8 @@ export default {
       })
     };
     const user    = reactive({
-      name  : 'Vasya',
-      id    : 10,
+      name  : '',
+      id    : null,
       roles : [],
     });
 
@@ -48,6 +48,7 @@ export default {
       //некое подобие авторизации и получения каких-то прав
       setTimeout(() => {
         user.name = 'Vasya';
+        user.id   = 10;
         user.roles.length = 0;
         user.roles.push('admin');
         isOk.value = true;

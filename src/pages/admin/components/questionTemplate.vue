@@ -88,8 +88,10 @@ const addAnswer = async(question_id) => {
     loading.value = true;
     let result = await AnswerRepo.add({
       user_id : user.id,
-      answer  : 'Тут необходимо ввести содержание этого ответа',
-      question_id,
+      data    : {
+        answer  : 'Тут необходимо ввести содержание этого ответа',
+        question_id,
+      },
     });
 
     if (result.data) {

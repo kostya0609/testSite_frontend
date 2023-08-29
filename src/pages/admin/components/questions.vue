@@ -6,18 +6,13 @@
       v-model:question="value[idx]"
       class="mb-5"
     />
-    <div class="flex justify-between">
-      <blue-button
-        action="add"
-        label="вопрос"
-        @click="addQuestion"
-      />
-      <blue-button
-          action="save"
-        label="вопросы"
-        @click="saveQuestions"
-      />
-    </div>
+
+    <blue-button
+      action="add"
+      label="вопрос"
+      @click="addQuestion"
+    />
+
   </pre-loader>
 
 </template>
@@ -44,7 +39,9 @@ const addQuestion   = async() => {
     loading.value = true;
     let result = await QuestionRepo.add({
       user_id  : user.id,
-      question : 'Тут необходимо ввести содержание этого вопроса'
+      data     : {
+        question : 'Тут необходимо ввести содержание этого вопроса'
+      },
     });
 
     if (result.data) {
@@ -57,26 +54,6 @@ const addQuestion   = async() => {
       );
       notify({title : `Добавление вопроса`, message : 'Успешно добавлен', type : 'success', duration : 2000});
     };
-
-  } catch (e) {
-    notify({title : `Добавление вопроса`, message : e.message, type : 'error', duration : 5000});
-  } finally {
-    loading.value = false;
-  }
-};
-
-const saveQuestions = async() => {
-
-  let questionToSave = []; //надо будет собрать данные для бэка чтоб сохранить вопросы
-
-  try{
-    loading.value = true;
-    await QuestionRepo.save({
-      user_id : user.id,
-      questionToSave
-    });
-
-    notify({title : `Сохранение вопросов`, message : 'Вопросы успешно сохранены', type : 'success', duration : 2000});
 
   } catch (e) {
     notify({title : `Добавление вопроса`, message : e.message, type : 'error', duration : 5000});

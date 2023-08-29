@@ -49,7 +49,6 @@ const answerDelete = async (question_id, answer_id) => {
 
     await AnswerRepo.delete({
       user_id : user.id,
-      question_id,
       answer_id
     });
 

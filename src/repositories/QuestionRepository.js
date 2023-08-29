@@ -53,20 +53,5 @@ export class QuestionRepository extends BaseRepository {
         return result;
     }
 
-    /**
-     * @param {} payload
-     * @return Promise<any>
-     */
-    async save(payload) {
-        const result = await this._query({
-            payload,
-            nestedEndpoint: 'save',
-        });
-
-        if (!result.success)
-            throw new Error(result.message);
-
-        return result;
-    }
 
 }
