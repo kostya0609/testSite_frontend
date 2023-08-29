@@ -33,7 +33,8 @@ export default {
       })
     };
     const user    = reactive({
-      name  : 10,
+      name  : 'Vasya',
+      id    : 10,
       roles : [],
     });
 
