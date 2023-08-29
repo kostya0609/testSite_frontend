@@ -42,16 +42,30 @@ const notify  = inject('notify');
 
 const loading = ref(false);
 
-const answerDelete = (question_id, answer_id) => {
-  ElMessageBox.confirm(`Вы уверены, что хотите удалить ответ с ID ${answer_id} у вопроса с ID ${question_id} ?`)
-      .then(async () => {
-        let question_idx  = questionsList.findIndex(el => el.id == question_id);
+const answerDelete = async (question_id, answer_id) => {
+  await ElMessageBox.confirm(`Вы уверены, что хотите удалить ответ с ID ${answer_id} у вопроса с ID ${question_id} ?`)
+  try {
+    loading.value = true;
 
-        let answer_idx = question_idx >= 0 ? questionsList.find(el => el.id == question_id).answers.findIndex(el => el.id == answer_id) : null;
+    await AnswerRepo.delete({
+      user_id : user.id,
+      question_id,
+      answer_id
+    });
 
-        answer_idx >= 0 ? questionsList[question_idx].answers.splice(answer_idx, 1) : '';
-      })
-      .catch(() => {})
+    let question_idx  = questionsList.findIndex(el => el.id == question_id);
+
+    let answer_idx = question_idx >= 0 ? questionsList.find(el => el.id == question_id).answers.findIndex(el => el.id == answer_id) : null;
+
+    answer_idx >= 0 ? questionsList[question_idx].answers.splice(answer_idx, 1) : '';
+
+  } catch (e) {
+    if (e !== 'cancel')
+      notify({title : 'Ошибка при выполнении запроса на удаление ответа', message :e.message, type : 'error', duration : 5000});
+  } finally {
+    loading.value = false;
+  }
+
 }
 
 </script>

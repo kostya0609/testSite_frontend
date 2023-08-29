@@ -60,14 +60,27 @@ const user           = inject('user');
 
 const loading        = ref(false);
 
-const questionDelete = (question_id) => {
+const questionDelete = async(question_id) => {
+  await ElMessageBox.confirm(`Вы уверены, что хотите удалить вопрос с ID ${question_id} ?`)
+  try {
+    loading.value = true;
 
-  ElMessageBox.confirm(`Вы уверены, что хотите удалить вопрос с ID ${question_id} ?`)
-      .then(async () => {
-        let question_idx  = questionsList.findIndex(el => el.id == question_id);
-        question_idx >= 0 ? questionsList.splice(question_idx, 1) : '';
-      })
-      .catch(() => {})
+    await QuestionRepo.delete({
+      user_id : user.id,
+      question_id,
+
+    });
+
+    let question_idx  = questionsList.findIndex(el => el.id == question_id);
+    question_idx >= 0 ? questionsList.splice(question_idx, 1) : '';
+
+  } catch (e) {
+    if (e !== 'cancel')
+      notify({title : 'Ошибка при выполнении запроса на удаление вопроса', message :e.message, type : 'error', duration : 5000});
+  } finally {
+    loading.value = false;
+  }
+
 };
 
 const addAnswer = async(question_id) => {
