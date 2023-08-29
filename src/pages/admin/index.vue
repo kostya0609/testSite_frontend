@@ -53,10 +53,7 @@
   };
   getData();
 
-
   provide('questionsList', questionsList)
-
-
 
 </script>
 

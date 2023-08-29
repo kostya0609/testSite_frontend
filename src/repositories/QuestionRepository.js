@@ -25,6 +25,22 @@ export class QuestionRepository extends BaseRepository {
      * @param {object} payload
      * @return Promise<any>
      */
+    async edit(payload) {
+        const result = await this._query({
+            payload,
+            nestedEndpoint: 'edit',
+        });
+
+        if (!result.success)
+            throw new Error(result.message);
+
+        return result;
+    }
+
+    /**
+     * @param {object} payload
+     * @return Promise<any>
+     */
     async delete(payload) {
         const result = await this._query({
             payload,

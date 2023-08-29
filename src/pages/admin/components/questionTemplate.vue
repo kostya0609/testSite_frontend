@@ -22,6 +22,18 @@
       </el-col>
     </el-row>
 
+    <el-row class="mb-3"
+      v-if="showEditBtn"
+    >
+      <el-col :md="2" class="lg:ml-3 my-auto">
+        <blue-button
+          action="save"
+          @click="editQuestion(question.id, question.question)"
+
+        />
+      </el-col>
+    </el-row>
+
     <answer-template
       v-for="(el, idx) in question.answers"
       :key="'a_' + el.id + '_' + idx"
@@ -45,7 +57,7 @@
 <script setup>
 import AnswerTemplate from "@/pages/admin/components/answerTemplate"
 import BlueButton from "@/components/blueButton";
-import {inject, ref} from "vue";
+import {inject, ref, watch} from "vue";
 import {ElMessageBox }  from 'element-plus';
 import {QuestionRepo, AnswerRepo} from "@/repositories";
 import PreLoader from "@/components/preLoader";
@@ -58,7 +70,30 @@ const notify         = inject('notify');
 const questionsList  = inject('questionsList');
 const user           = inject('user');
 
+const showEditBtn    = ref(false);
+
 const loading        = ref(false);
+
+const editQuestion   = async(question_id, question) => {
+  try {
+    loading.value = true;
+
+    await QuestionRepo.edit({
+      user_id : user.id,
+      data    : {
+        question_id,
+        question
+      }
+    });
+
+    showEditBtn.value = false;
+
+  } catch (e) {
+      notify({title : 'Ошибка при выполнении запроса на редактирование вопроса', message :e.message, type : 'error', duration : 5000});
+  } finally {
+    loading.value = false;
+  }
+};
 
 const questionDelete = async(question_id) => {
   await ElMessageBox.confirm(`Вы уверены, что хотите удалить вопрос с ID ${question_id} ?`)
@@ -113,6 +148,13 @@ const addAnswer = async(question_id) => {
     loading.value = false;
   }
 }
+
+watch(
+    () => props.question.question,
+    () => {
+      showEditBtn.value =true;
+    }
+)
 </script>
 
 <style scoped>
