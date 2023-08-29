@@ -29,7 +29,6 @@
         <blue-button
           action="save"
           @click="editQuestion(question.id, question.question)"
-
         />
       </el-col>
     </el-row>

@@ -30,7 +30,6 @@
         <blue-button
             action="save"
             @click="editAnswer(answer.id, answer.answer)"
-
         />
       </el-col>
     </el-row>
