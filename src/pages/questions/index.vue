@@ -1,7 +1,7 @@
 <template>
   <pre-loader :loading="loading">
 
-    <div class="mt-3">
+    <div class="mt-3 xs:px-0 sm:px-5">
 
       <div class="mb-3 xs:block sm:block md:flex justify-between">
         <h3 class="font-bold text-xl">Ответы на вопросы</h3>
@@ -59,9 +59,10 @@
 <script setup>
 import {ref, reactive, watch, inject, computed} from "vue";
   import PreLoader from "@/components/preLoader";
-  import {QuestionRepo} from "@/repositories";
+  import {QuestionRepo, PaddingRepo} from "@/repositories";
 
   const notify          = inject('notify');
+  const user            = inject('user');
 
   const loading         = ref(false);
 
@@ -73,11 +74,16 @@ import {ref, reactive, watch, inject, computed} from "vue";
 
   const questionsList   = reactive([]);
 
+  const paddings        = reactive({
+    top    : 0,
+    bottom : 0,
+  });
+
   const showAnswers     = computed(() => {
     return Object.keys(selectAnswer).length
   });
 
-  const getData = async() => {
+  const getQuestions = async() => {
     try{
       loading.value = true;
       let result = await QuestionRepo.list({});
@@ -94,7 +100,27 @@ import {ref, reactive, watch, inject, computed} from "vue";
       loading.value = false;
     }
   };
-  getData();
+getQuestions();
+
+const getPadding = async() => {
+  try{
+    loading.value = true;
+    let result = await PaddingRepo.get({
+      user_id : user.id
+    });
+
+    if (result.data) {
+      paddings.top = result.data.padding_top;
+      paddings.bottom = result.data.padding_bottom;
+    }
+
+  } catch (e) {
+    notify({title : `Получение данных о вопросах`, message : e.message, type : 'error', duration : 5000});
+  } finally {
+    loading.value = false;
+  }
+};
+getPadding();
 
   watch(
     () => accordion.value,
