@@ -8,7 +8,7 @@
     />
 
     <blue-button
-      action="add"
+      action="more"
       label="вопрос"
       @click="addQuestion"
     />

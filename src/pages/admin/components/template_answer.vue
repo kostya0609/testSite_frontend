@@ -14,7 +14,6 @@
       <el-col :md="2" class="lg:ml-3 my-auto">
         <br class="hidden lg:block xl:block 2xl:block" />
         <el-button
-          size="small"
           type="danger"
           @click="answerDelete(question_id, answer.id)"
         >
