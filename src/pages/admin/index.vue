@@ -19,8 +19,8 @@
   import {ref, reactive, provide, inject} from "vue";
   import PreLoader from "@/components/preLoader";
   import ReturnButton from "@/components/returnButton";
-  import Questions from "@/pages/admin/components/questions"
-  import Settings from "@/pages/admin/components/settings"
+  import Questions from "@/pages/admin/components/tab_questions"
+  import Settings from "@/pages/admin/components/tab_settings"
   import {QuestionRepo} from "@/repositories";
 
   const notify  = inject('notify');
