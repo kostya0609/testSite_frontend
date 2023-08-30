@@ -2,9 +2,12 @@
   <pre-loader :loading="loading">
     <h3 class="font-bold text-xl mb-1">Вопрос ID - {{question.id}}</h3>
 
-    <el-row class="mb-3 pl-3">
+    <el-row class="mb-1 xs:pl-0 :sm:pl-0">
 
-      <el-col :md="12">
+      <el-col
+        :xs="21" :sm="21" :md="22"
+        class="pr-1"
+      >
         <label class="font-bold block mb-1">Содержание</label>
         <el-input
           v-model="question.question"
@@ -15,10 +18,9 @@
 
       <el-col
         v-if="!showEditBtn"
-        :md="2"
-        class="lg:ml-3 my-auto"
+        :xs="3" :sm="3" :md="2"
       >
-        <br class="hidden lg:block xl:block 2xl:block" />
+        <label class="block mb-1"><br/></label>
         <el-button
           type="danger"
           @click="questionDelete(question.id)"
@@ -29,27 +31,31 @@
 
       <el-col
         v-else
-        :md="2"
-        class="lg:ml-3 my-auto"
+        :xs="3" :sm="3" :md="2"
       >
-        <br/>
+        <label class="block mb-1"><br/></label>
         <blue-button
-            action="save"
-            @click="editQuestion(question.id, question.question)"
+         action="save"
+         @click="editQuestion(question.id, question.question)"
         />
       </el-col>
 
     </el-row>
 
-    <answer-template
+    <template-answer
       v-for="(el, idx) in question.answers"
       :key="'a_' + el.id + '_' + idx"
       v-model:answer="question.answers[idx]"
       :question_id="question.id"
     />
 
+
     <el-row>
-      <el-col :md=12 align="right">
+      <el-col
+        :xs="21" :sm="21" :md="22"
+        class="pr-1"
+        align="right"
+      >
         <blue-button
           action="more"
           label="ответ"
@@ -62,7 +68,7 @@
 </template>
 
 <script setup>
-import AnswerTemplate from "@/pages/admin/components/template_answer"
+import TemplateAnswer from "@/pages/admin/components/template_answer"
 import BlueButton from "@/components/blueButton";
 import {inject, ref, watch} from "vue";
 import {ElMessageBox }  from 'element-plus';

@@ -1,15 +1,15 @@
 <template>
-  <pre-loader :loading="loading" class="py-3">
+  <pre-loader :loading="loading">
 
-    <div class="flex justify-between mb-3">
+    <div class="flex justify-between mb-3 xs:p-0 xs:m-0">
       <h3 class="font-bold text-xl">Администрирование</h3>
       <return-button/>
     </div>
 
     <el-tabs type="border-card" v-model="page">
       <el-tab-pane v-for="(item, key) in menu" :label="item" :name="key" :key="key"/>
-      <questions v-if="page === 'questions' && !loading" v-model:value="questionsList"/>
-      <settings  v-if="page === 'settings'  && !loading"/>
+      <tab-questions v-if="page === 'questions' && !loading" v-model:value="questionsList"/>
+      <tab-settings  v-if="page === 'settings'  && !loading"/>
     </el-tabs>
 
   </pre-loader>
@@ -19,8 +19,8 @@
   import {ref, reactive, provide, inject} from "vue";
   import PreLoader from "@/components/preLoader";
   import ReturnButton from "@/components/returnButton";
-  import Questions from "@/pages/admin/components/tab_questions"
-  import Settings from "@/pages/admin/components/tab_settings"
+  import TabQuestions from "@/pages/admin/components/tab_questions"
+  import TabSettings from "@/pages/admin/components/tab_settings"
   import {QuestionRepo} from "@/repositories";
 
   const notify  = inject('notify');
@@ -58,5 +58,8 @@
 </script>
 
 <style scoped>
+.el-tabs >>> .el-tabs__content{
+  padding: 0;
+}
 
 </style>

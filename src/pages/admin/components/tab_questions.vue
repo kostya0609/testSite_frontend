@@ -1,24 +1,24 @@
 <template>
-  <pre-loader :loading="loading" class="p-3">
-    <question-template
-      v-for="(item, idx) in value"
-      :key="'q_' + item.id + '_' + idx"
-      v-model:question="value[idx]"
-      class="mb-5"
-    />
+  <pre-loader :loading="loading">
+    <div class="p-2 xs:p-px">
+      <template-question
+        v-for="(item, idx) in value"
+        :key="'q_' + item.id + '_' + idx"
+        v-model:question="value[idx]"
+      />
 
-    <blue-button
-      action="more"
-      label="вопрос"
-      @click="addQuestion"
-    />
-
+      <blue-button
+        action="more"
+        label="вопрос"
+        @click="addQuestion"
+      />
+    </div>
   </pre-loader>
 
 </template>
 
 <script setup>
-import QuestionTemplate from "@/pages/admin/components/template_question"
+import TemplateQuestion from "@/pages/admin/components/template_question"
 import BlueButton from "@/components/blueButton";
 import {inject, ref} from "vue";
 import {QuestionRepo} from "@/repositories";

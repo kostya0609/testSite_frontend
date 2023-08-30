@@ -1,7 +1,11 @@
 <template>
   <pre-loader :loading="loading">
-    <el-row class="mb-1 pl-3">
-      <el-col :md="12" >
+
+    <el-row class="mb-1 xs:pl-px sm:pl-2 md:pl-3">
+      <el-col
+        :xs="21" :sm="21" :md="22"
+        class="pr-1"
+      >
         <label class="font-bold block mb-1">Ответ ID - {{answer.id}}</label>
         <el-input
           v-model="answer.answer"
@@ -11,8 +15,13 @@
           placeholder="Содержание ответа"
         />
       </el-col>
-      <el-col :md="2" class="lg:ml-3 my-auto">
-        <br class="hidden lg:block xl:block 2xl:block" />
+
+      <el-col
+        v-if="!showEditBtn"
+        :xs="3" :sm="3" :md="2"
+        class="my-auto"
+      >
+        <label class="block mb-1"><br/></label>
         <el-button
           type="danger"
           @click="answerDelete(question_id, answer.id)"
@@ -20,18 +29,20 @@
           <el-icon><CloseBold /></el-icon>
         </el-button>
       </el-col>
-    </el-row>
 
-    <el-row class="mb-3"
-      v-if="showEditBtn"
-    >
-      <el-col :md="2" class="lg:ml-3 my-auto">
+      <el-col
+        v-else
+        :xs="3" :sm="3" :md="2"
+        class="my-auto"
+      >
         <blue-button
-            action="save"
-            @click="editAnswer(answer.id, answer.answer)"
+          action="save"
+          @click="editAnswer(answer.id, answer.answer)"
         />
       </el-col>
+
     </el-row>
+
   </pre-loader>
 </template>
 

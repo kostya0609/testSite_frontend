@@ -21,34 +21,15 @@
     //  'base': #3bc8f5,
     //),
   ),
-  //$border-radius: (
-  //  'base': 6px
-  //),
-  //$font-family: (
-  //  '':
-  //    "'Stolzlregular'"
-  //),
-  //$button-padding-horizontal: (
-  //  'default':''
-  //),
-  //$input-height: (
-  //  'default': ''
-  //),
-  //$input-line-height: (
-  //  'default': 3.4em
-  //),
-  //$common-component-size: (
-  //  'large':48px
-  //),
-  //$card: (
-  //  'border-radius':20px
-  //),
-  //$radio-bordered-input-width: (
-  //  'large':24px
-  //),
-  //$radio-bordered-input-height: (
-  //  'large':24px
-  //)
+
+  $breakpoints: (
+  'xs': '(max-width: #{'389.99px'})',
+  'sm': '(min-width: #{'390px'})',
+  'md': '(min-width: #{'640px'})',
+  'lg': '(min-width: #{'1024px'})',
+  'xl': '(min-width: #{'1440px'})',
+  ),
+
 
 );
 
