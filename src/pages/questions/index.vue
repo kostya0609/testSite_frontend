@@ -16,7 +16,7 @@
         v-model="activeNames"
         v-for="(question, idx) in questionsList"
         :key="'q_' + idx + '_' + question.id"
-        class="questions_block xs:ml-1 sm:ml-2 md:ml-3"
+        class="xs:ml-1 sm:ml-2 md:ml-3"
         :accordion="accordion"
       >
 
@@ -106,21 +106,19 @@ import {ref, reactive, watch, inject, computed} from "vue";
 </script>
 
 <style scoped>
-
-.questions_block >>> .el-collapse-item__arrow {
+.el-collapse >>> .el-collapse-item__arrow {
   margin: 0 0 0 10px;
 }
-
 .el-collapse >>> .el-collapse-item__header{
-line-height: normal;
+  line-height: normal;
+  height: auto;
 }
-
 .el-radio >>> .el-radio__label{
+  height: auto;
   line-height: normal;
   white-space: normal;
 }
 .el-radio-group >>> .\!block{
-  display: inline-flex !important;
   height:auto;
   padding: 5px 0;
 }
