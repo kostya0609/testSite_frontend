@@ -1,9 +1,9 @@
 <template>
   <pre-loader :loading="loading">
 
-    <div class="px-0 sm:px-10 md:px-20 lg:px-32 xl:px-40 2xl:px-52 py-5">
+    <div class="mt-3">
 
-      <div class="block sm:flex md:flex lg:flex xl:flex 2xl:flex justify-between">
+      <div class="mb-3 xs:block sm:block md:flex justify-between">
         <h3 class="font-bold text-xl">Ответы на вопросы</h3>
         <el-switch
           v-model="accordion"
@@ -16,7 +16,7 @@
         v-model="activeNames"
         v-for="(question, idx) in questionsList"
         :key="'q_' + idx + '_' + question.id"
-        class="questions_block ml-5"
+        class="questions_block xs:ml-1 sm:ml-2 md:ml-3"
         :accordion="accordion"
       >
 
@@ -28,7 +28,7 @@
               v-for="(answer, idx) in question.answers"
               :key="'a_' + idx + '_' + answer.id"
               :label="answer.id"
-              class="!block pl-5 py-1"
+              class="!block xs:ml-1 sm:ml-2 md:ml-3"
             >
               Ответ ID {{(idx + 1) + ' - ' + answer.answer}}
             </el-radio>
@@ -45,7 +45,7 @@
         <p
           v-for="(value, name) in selectAnswer"
           :key="value + '_' + name"
-          class="pl-5 py-1"
+          class="xs:ml-1 sm:ml-2 md:ml-3"
         >
           Вопрос ID{{name}} - {{value ? 'Ответ ID' + value : ' нет ответа'}}
         </p>
@@ -109,6 +109,20 @@ import {ref, reactive, watch, inject, computed} from "vue";
 
 .questions_block >>> .el-collapse-item__arrow {
   margin: 0 0 0 10px;
+}
+
+.el-collapse >>> .el-collapse-item__header{
+line-height: normal;
+}
+
+.el-radio >>> .el-radio__label{
+  line-height: normal;
+  white-space: normal;
+}
+.el-radio-group >>> .\!block{
+  display: inline-flex !important;
+  height:auto;
+  padding: 5px 0;
 }
 
 </style>
