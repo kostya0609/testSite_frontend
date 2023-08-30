@@ -35,6 +35,7 @@
         :xs="3" :sm="3" :md="2"
         class="my-auto"
       >
+        <label class="block mb-1"><br/></label>
         <blue-button
           action="save"
           @click="editAnswer(answer.id, answer.answer)"
