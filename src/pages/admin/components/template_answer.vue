@@ -6,7 +6,7 @@
         :xs="21" :sm="21" :md="22"
         class="pr-1"
       >
-        <label class="font-bold block mb-1">Ответ ID - {{answer.id}}</label>
+        <label class="font-bold block mb-1">Ответ № - {{number}}</label>
         <el-input
           v-model="answer.answer"
           :class="['w-full', {'border border-red-500' : false}]"
@@ -56,7 +56,8 @@ import BlueButton from "@/components/blueButton";
 
 const props = defineProps({
   answer      : Object,
-  question_id : Number
+  question_id : Number,
+  number      : Number,
 });
 
 const user         = inject('user');

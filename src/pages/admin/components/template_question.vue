@@ -1,6 +1,6 @@
 <template>
   <pre-loader :loading="loading">
-    <h3 class="font-bold text-xl mb-1">Вопрос ID - {{question.id}}</h3>
+    <h3 class="font-bold text-xl mb-1">Вопрос № - {{number}}</h3>
 
     <el-row class="mb-1 xs:pl-0 :sm:pl-0">
 
@@ -47,6 +47,7 @@
       :key="'a_' + el.id + '_' + idx"
       v-model:answer="question.answers[idx]"
       :question_id="question.id"
+      :number="idx + 1"
     />
 
 
@@ -77,6 +78,7 @@ import PreLoader from "@/components/preLoader";
 
 const props = defineProps({
   question : Object,
+  number   : Number,
 });
 
 const notify         = inject('notify');

@@ -5,6 +5,7 @@
         v-for="(item, idx) in value"
         :key="'q_' + item.id + '_' + idx"
         v-model:question="value[idx]"
+        :number="idx+1"
       />
 
       <blue-button

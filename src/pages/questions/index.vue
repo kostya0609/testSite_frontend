@@ -20,7 +20,7 @@
         :accordion="accordion"
       >
 
-        <el-collapse-item  :title="'Вопрос ID ' + (idx + 1) + ' - '+ question.question">
+        <el-collapse-item  :title="'Вопрос № ' + (idx + 1) + ' - '+ question.question">
 
           <el-radio-group v-model="selectAnswer[question.id]" class="!block">
 
@@ -30,7 +30,7 @@
               :label="answer.id"
               class="!block xs:ml-1 sm:ml-2 md:ml-3"
             >
-              Ответ ID {{(idx + 1) + ' - ' + answer.answer}}
+              Ответ № {{(idx + 1) + ' - ' + answer.answer}}
             </el-radio>
 
           </el-radio-group>
