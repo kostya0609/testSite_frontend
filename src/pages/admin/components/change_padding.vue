@@ -14,16 +14,20 @@
 <script setup>
 import PreLoader from "@/components/preLoader";
 
-import {ref, reactive} from "vue";
+import {ref, reactive, inject} from "vue";
+import {PaddingRepo} from "@/repositories";
 
 const props = defineProps({
   padding : Number,
   type    : String,
 });
 
+const notify        = inject('notify');
+const user          = inject('user');
+
 const loading       = ref(false);
 
-const activePadding = ref(props.padding)
+const activePadding = ref(props.padding ? props.padding : 0)
 
 const padding_list  = reactive([
   { name : 0,  label : '0px'},
@@ -35,8 +39,22 @@ const padding_list  = reactive([
   { name : 30, label : '30px'},
  ])
 
-const changePadding = async() => {
+const changePadding = async(value) => {
+  try{
+    loading.value = true;
+    await PaddingRepo.change({
+      user_id : user.id,
+      padding_type : props.type,
+      [props.type === 'top' ? 'padding_top' : 'padding_bottom'] : value.props.name
+    });
 
+    notify({title : `Изменение padding_${props.type}`, message : 'Успешно изменен', type : 'success', duration : 1000});
+
+  } catch (e) {
+    notify({title : `Изменение padding_${props.type}`, message : e.message, type : 'error', duration : 5000});
+  } finally {
+    loading.value = false;
+  }
 };
 
 </script>

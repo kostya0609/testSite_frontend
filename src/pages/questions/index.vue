@@ -115,7 +115,7 @@ const getPadding = async() => {
     }
 
   } catch (e) {
-    notify({title : `Получение данных о вопросах`, message : e.message, type : 'error', duration : 5000});
+    notify({title : `Получение данных о padding`, message : e.message, type : 'error', duration : 5000});
   } finally {
     loading.value = false;
   }
