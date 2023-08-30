@@ -31,6 +31,7 @@ const activePadding = ref(props.padding ? props.padding : 0)
 
 const padding_list  = reactive([
   { name : 0,  label : '0px'},
+  { name : 5,  label : '5px'},
   { name : 10, label : '10px'},
   { name : 15, label : '15px'},
   { name : 20, label : '20px'},
