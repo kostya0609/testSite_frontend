@@ -1,7 +1,7 @@
 <template>
-  <pre-loader :loading="loading" class="xs:p-px sm:p-3">
+  <pre-loader :loading="loading">
 
-    <div v-if="isOk">
+    <div v-if="isOk" class="xs:p-px sm:p-2">
       <nav-bar v-if="navBarVisible"/>
       <router-view/>
     </div>

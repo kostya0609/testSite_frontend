@@ -1,7 +1,7 @@
 <template>
   <pre-loader :loading="loading">
 
-    <div class="flex justify-between mb-3 xs:p-0 xs:m-0">
+    <div class="flex justify-between xs:p-0 xs:my-px sm:my-2 md:my-3">
       <h3 class="font-bold text-xl">Администрирование</h3>
       <return-button/>
     </div>
