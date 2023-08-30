@@ -1,7 +1,10 @@
 <template>
   <pre-loader :loading="loading">
 
-    <div class="mt-3 xs:px-0 sm:px-5">
+    <div
+      class="custom-padding mt-3 xs:px-0 sm:px-5"
+      :style="{'--paddingTop' : paddings.top + 'px', '--paddingBottom' : paddings.bottom + 'px'}"
+    >
 
       <div class="mb-3 xs:block sm:block md:flex justify-between">
         <h3 class="font-bold text-xl">Ответы на вопросы</h3>
@@ -53,6 +56,7 @@
 
     </div>
 
+
   </pre-loader>
 </template>
 
@@ -100,29 +104,29 @@ import {ref, reactive, watch, inject, computed} from "vue";
       loading.value = false;
     }
   };
-getQuestions();
+  getQuestions();
 
-const getPadding = async() => {
-  try{
-    loading.value = true;
-    let result = await PaddingRepo.get({
-      user_id : user.id
-    });
+  const getPadding = async() => {
+    try{
+      loading.value = true;
+      let result = await PaddingRepo.get({
+        user_id : user.id
+      });
 
-    if (result.data) {
-      paddings.top = result.data.padding_top;
-      paddings.bottom = result.data.padding_bottom;
+      if (result.data) {
+        paddings.top = result.data.padding_top;
+        paddings.bottom = result.data.padding_bottom;
+      }
+
+    } catch (e) {
+      notify({title : `Получение данных о padding`, message : e.message, type : 'error', duration : 5000});
+    } finally {
+      loading.value = false;
     }
+  };
+  getPadding();
 
-  } catch (e) {
-    notify({title : `Получение данных о padding`, message : e.message, type : 'error', duration : 5000});
-  } finally {
-    loading.value = false;
-  }
-};
-getPadding();
-
-  watch(
+watch(
     () => accordion.value,
     () => {
       activeNames.value = []
@@ -148,5 +152,8 @@ getPadding();
   height:auto;
   padding: 5px 0;
 }
-
+.custom-padding{
+  padding-top: var(--paddingTop);
+  padding-bottom: var(--paddingBottom);
+}
 </style>
