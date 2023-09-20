@@ -2,7 +2,7 @@
   <pre-loader :loading="loading">
 
     <div
-      class="custom-padding mt-3 xs:px-0 sm:px-5"
+      class="wrapper custom-padding mt-3 xs:px-0 sm:px-5"
       :style="{'--paddingTop' : paddings.top + 'px', '--paddingBottom' : paddings.bottom + 'px'}"
     >
 
@@ -23,7 +23,7 @@
         :accordion="accordion"
       >
 
-        <el-collapse-item  :title="'Вопрос № ' + (idx + 1) + ' - '+ question.question">
+        <el-collapse-item  :title="'Вопрос № ' + (idx + 1) + ' - '+ question.question" class="pb-3">
 
           <el-radio-group v-model="selectAnswer[question.id]" class="!block">
 
@@ -155,5 +155,20 @@ watch(
 .custom-padding{
   padding-top: var(--paddingTop);
   padding-bottom: var(--paddingBottom);
+}
+.wrapper::v-deep .el-collapse{
+  border-top: none;
+  border-bottom: none;
+}
+
+.wrapper::v-deep .el-collapse-item__header{
+  border-bottom: none;
+}
+.wrapper::v-deep .el-collapse-item__wrap{
+  border-bottom: none;
+}
+
+.wrapper::v-deep .el-collapse-item__content{
+  padding: 0;
 }
 </style>
